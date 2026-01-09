@@ -2,9 +2,7 @@ import type { HTMLAttributes } from 'vue'
 
 export interface Theme {
   colors: ThemeColors
-  size: ThemeSizes
-  radius: ThemeRadius
-  [propName: string]: Record<string, unknown> // for other theme props
+  [propName: string]: Record<string, string> | ThemeColors // for other theme props
 }
 
 // Component Spec
@@ -15,15 +13,11 @@ export interface ComponentSpec {
   defaultProps?: {
     color?: string
     variant?: string
-    size?: string
-    radius?: string
-    [key: string]: string | undefined
+    [propName: string]: unknown
   }
   override?: {
     colors?: ThemeColors
-    size?: ThemeSizes
-    radius?: ThemeRadius
-    [propName: string]: Record<string, unknown> | undefined // size, radius, etc.
+    [propName: string]: Record<string, string> | ThemeColors | undefined // size, radius, etc.
   }
 }
 
@@ -50,12 +44,4 @@ export interface ThemeColors {
       [key: string]: string
     }
   }
-}
-
-export interface ThemeSizes {
-  [sizeName: string]: string
-}
-
-export interface ThemeRadius {
-  [radiusName: string]: string
 }

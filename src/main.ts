@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
 
 import { lantern } from './plugin'
@@ -12,6 +11,10 @@ const theme = createTheme(defaultTheme, {
         background: 'bg-slate-800',
       },
     },
+  },
+  size: {
+    xl: 'size-xl',
+    xs: 'size-xs',
   },
 })
 
