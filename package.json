@@ -1,26 +1,56 @@
 {
-  "name": "lantern",
+  "name": "@lucentis/lantern",
+  "description": "Headless primitives and themeable Vue 3 components",
   "version": "0.0.0",
-  "private": true,
+  "license": "MIT",
+  "author": "Lucentis <lucentis.dev@gmail.com>",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucentis-lab/lantern"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "ui",
+    "headless",
+    "components",
+    "design-system",
+    "tailwind",
+    "theming"
+  ],
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
+  "main": "./dist/lantern.cjs.js",
+  "module": "./dist/lantern.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/lantern.es.js",
+      "require": "./dist/lantern.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "test:unit": "vitest",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build",
+    "type-check": "vue-tsc --emitDeclarationOnly",
+    "test": "vitest",
     "lint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/",
-    "test": "vitest"
+    "format": "prettier --write src/",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0",
+    "lodash-es": "^4.17.21"
   },
   "dependencies": {
-    "lodash-es": "^4.17.22",
-    "tailwind-merge": "^3.4.0",
-    "vue": "^3.5.26"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.3",
@@ -35,13 +65,11 @@
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.39.2",
     "eslint-plugin-vue": "~10.6.2",
-    "jiti": "^2.6.1",
     "jsdom": "^27.4.0",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.7.4",
     "typescript": "~5.9.3",
     "vite": "^7.3.0",
-    "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.0.16",
     "vue-tsc": "^3.2.2"
   }
