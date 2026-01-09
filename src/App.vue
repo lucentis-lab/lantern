@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useComponentClasses } from './composables/useComponentClasses'
 
-useComponentClasses(
+const classes = useComponentClasses(
   {
     size: 'xl',
   },
@@ -18,6 +18,8 @@ useComponentClasses(
     },
   },
 )
+
+console.log(classes)
 </script>
 
 <template>

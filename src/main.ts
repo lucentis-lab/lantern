@@ -8,7 +8,7 @@ const theme = createTheme(defaultTheme, {
   colors: {
     slate: {
       filled: {
-        background: 'bg-slate-800',
+        background: 'filled-slate-background',
       },
     },
   },
