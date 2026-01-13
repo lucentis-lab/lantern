@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@/components/button'
-import { Alert, AlertClose } from './primitives/alert'
+import { Alert, AlertClose } from './components/alert'
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import { Alert, AlertClose } from './primitives/alert'
 
   <Button>Test</Button>
 
-  <Alert :duration="4000">
+  <Alert>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, nemo?
     <AlertClose></AlertClose>
   </Alert>
