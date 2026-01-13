@@ -1,6 +1,6 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <button
+    class="l-button"
     :disabled="props.disabled || props.loading"
     :aria-disabled="props.disabled ? 'true' : undefined"
     :aria-busy="props.loading ? 'true' : undefined"
