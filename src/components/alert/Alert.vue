@@ -22,5 +22,5 @@ const emit = defineEmits<{
   dismiss: []
 }>()
 
-const classes = computed(() => useComponentClasses(props, alertSpecs))
+const classes = useComponentClasses(props, alertSpecs)
 </script>

@@ -18,7 +18,5 @@ interface ButtonProps extends BaseProps, ButtonPrimitiveProps {
 
 const props = defineProps<ButtonProps>()
 
-const classes = computed(() => {
-  return useComponentClasses(props, buttonSpecs)
-})
+const classes = useComponentClasses(props, buttonSpecs)
 </script>
