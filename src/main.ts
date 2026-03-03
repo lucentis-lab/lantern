@@ -21,7 +21,7 @@ const theme = createTheme(defaultTheme, {
 
 createApp(App)
   .use(lantern, {
-    theme: theme,
+    theme: defaultTheme,
     //otherOptions like defaultColor, defaultVariant etc
   })
   .mount('#app')

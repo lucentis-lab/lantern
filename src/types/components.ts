@@ -10,3 +10,8 @@ export interface AvatarContext {
   showFallback: Ref<boolean>
   onError: CallableFunction
 }
+
+export interface BadgeContext {
+  isVisible: Ref<boolean>
+  dismiss: () => void
+}

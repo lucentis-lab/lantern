@@ -1,7 +1,7 @@
 <template>
   <div
     class="l-alert"
-    v-show="isVisible"
+    v-if="isVisible"
     :role="props.role || 'alert'"
     :aria-hidden="!isVisible ? 'true' : undefined"
     :data-state="state"
