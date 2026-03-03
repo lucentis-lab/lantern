@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import './style.css'
 
 import { lantern } from './plugin'
 import { defaultTheme, createTheme } from './themes'
