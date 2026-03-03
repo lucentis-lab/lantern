@@ -9,7 +9,6 @@ import Alert, { type AlertPrimitiveProps } from '../../primitives/alert/Alert.vu
 import { useComponentClasses } from '../../composables/useComponentClasses'
 import { alertSpecs } from './alertSpecs'
 import type { BaseProps } from '../../types'
-import { computed, type HTMLAttributes } from 'vue'
 
 interface AlertProps extends AlertPrimitiveProps, BaseProps {
   size?: string

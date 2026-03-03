@@ -9,7 +9,6 @@ import { buttonSpecs } from './buttonSpecs'
 import { useComponentClasses } from '@/composables/useComponentClasses.js'
 import Button, { type ButtonPrimitiveProps } from '@/primitives/button/Button.vue'
 import type { BaseProps } from '../../types'
-import { computed } from 'vue'
 
 interface ButtonProps extends BaseProps, ButtonPrimitiveProps {
   size?: string
