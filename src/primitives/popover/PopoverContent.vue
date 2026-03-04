@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="popover?.isOpen.value"
+    v-show="popover?.isOpen.value"
     class="l-popover-content"
     role="dialog"
     :id="popover?.contentId"

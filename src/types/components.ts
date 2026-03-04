@@ -52,3 +52,10 @@ export interface DropdownContext {
   triggerId: string
   contentId: string
 }
+
+export interface TooltipContext {
+  isOpen: Ref<boolean>
+  open: () => void
+  close: () => void
+  tooltipId: string
+}

@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './components/accordion';
 import { Popover, PopoverContent, PopoverTrigger } from './primitives/popover';
 import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from './components/dropdown';
+import { Tooltip, TooltipContent, TooltipTrigger } from './components/tooltip';
 
 const onEdit = () => {
   console.log('edit clicked');
@@ -76,6 +77,13 @@ const onEdit = () => {
         <DropdownItem disabled>Archive</DropdownItem>
       </DropdownContent>
     </Dropdown>
+
+    <br>
+
+    <Tooltip>
+      <TooltipTrigger>Delete</TooltipTrigger>
+      <TooltipContent>This action is irreversible</TooltipContent>
+    </Tooltip>
   </div>
 </template>
 

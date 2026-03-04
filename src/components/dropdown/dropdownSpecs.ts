@@ -9,11 +9,11 @@ export const dropdownSpecs: ComponentSpec = {
 
 export const dropdownTriggerSpecs: ComponentSpec = {
   name: 'DropdownTrigger',
-  apply: ['hover', 'focus'],
+  apply: ['hover', 'outline:border'],
   class: '',
   defaultProps: {
     color: 'slate',
-    variant: 'filled',
+    variant: 'outline',
     size: 'medium',
     radius: 'medium',
   },
@@ -22,10 +22,11 @@ export const dropdownTriggerSpecs: ComponentSpec = {
 
 export const dropdownContentSpecs: ComponentSpec = {
   name: 'DropdownContent',
-  class: 'z-50 min-w-32 py-1 shadow-md outline-none',
+  class: 'z-50 min-w-32 py-1 shadow-md p-2',
+  apply: [ 'outline:border'],
   defaultProps: {
     color: 'slate',
-    variant: 'filled',
+    variant: 'outline',
     radius: 'medium',
   },
   override: {},
