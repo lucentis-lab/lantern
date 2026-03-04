@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 
 export interface AlertContext {
   isVisible: Ref<boolean>
@@ -21,3 +21,18 @@ export interface TabsContext {
   setTab: (value: string) => void
   uid: string
 }
+
+export interface AccordionContext {
+  isOpen: (value: string) => boolean
+  toggle: (value: string) => void
+  uid: string
+}
+
+export interface AccordionItemContext {
+  value: string
+  isOpen: Ref<boolean>
+  triggerId: ComputedRef<string>
+  contentId: ComputedRef<string>
+}
+
+
