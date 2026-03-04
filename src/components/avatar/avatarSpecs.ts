@@ -4,8 +4,6 @@ export const avatarSpecs: ComponentSpec = {
   name: 'Avatar',
   class: 'relative inline-flex items-center justify-center overflow-hidden size-12',
   defaultProps: {
-    color: 'slate',
-    variant: 'filled',
     radius: 'circle',
   },
   override: {},

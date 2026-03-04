@@ -13,6 +13,11 @@ export function resolvePropsClasses(
     // Skip excluded props
     if (excludedProps.includes(propName)) continue
 
+    // Skip props unrelated to the theme system
+    const existsInTheme = propName in theme
+    const existsInOverride = spec?.override && propName in spec.override
+    if (!existsInTheme && !existsInOverride) continue
+    
     // Resolve value: props > spec.defaultProps
     const propValue = props[propName] ?? spec.defaultProps?.[propName]
 

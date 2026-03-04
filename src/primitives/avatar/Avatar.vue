@@ -13,8 +13,6 @@ const imageError = ref(false)
 const showFallback = ref(false)
 
 const onError = () => {
-  console.log('error image');
-
   imageError.value = true
   showFallback.value = true
 }
