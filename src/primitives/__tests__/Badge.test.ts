@@ -22,25 +22,13 @@ describe('BadgePrimitive', () => {
     expect(wrapper.attributes('data-state')).toBe('visible')
   })
 
-  it('sets data-dismissible when dismissible prop is true', () => {
-    const wrapper = mount(Badge, {
-      props: { dismissible: true },
-    })
-    expect(wrapper.attributes('data-dismissible')).toBe('true')
-  })
-
-  it('does not set data-dismissible by default', () => {
-    const wrapper = mount(Badge)
-    expect(wrapper.attributes('data-dismissible')).toBeUndefined()
-  })
-
   it('can be dismissed via exposed method', async () => {
     const wrapper = mount(Badge)
 
     ;(wrapper.vm as any).dismiss()
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.attributes('data-state')).toBe('hidden')
+    expect(wrapper.find('.l-badge').exists()).toBe(false)
   })
 
   it('emits dismiss event when dismissed', async () => {
@@ -57,7 +45,7 @@ describe('BadgeDismiss', () => {
   it('renders a button element', () => {
     const wrapper = mount({
       components: { Badge, BadgeDismiss },
-      template: `<Badge dismissible><BadgeDismiss /></Badge>`,
+      template: `<Badge><BadgeDismiss /></Badge>`,
     })
     expect(wrapper.find('button').exists()).toBe(true)
   })
@@ -65,7 +53,7 @@ describe('BadgeDismiss', () => {
   it('has default aria-label', () => {
     const wrapper = mount({
       components: { Badge, BadgeDismiss },
-      template: `<Badge dismissible><BadgeDismiss /></Badge>`,
+      template: `<Badge><BadgeDismiss /></Badge>`,
     })
     expect(wrapper.find('button').attributes('aria-label')).toBe('Remove badge')
   })
@@ -73,7 +61,7 @@ describe('BadgeDismiss', () => {
   it('accepts custom aria-label', () => {
     const wrapper = mount({
       components: { Badge, BadgeDismiss },
-      template: `<Badge dismissible><BadgeDismiss aria-label="Remove tag" /></Badge>`,
+      template: `<Badge><BadgeDismiss aria-label="Remove tag" /></Badge>`,
     })
     expect(wrapper.find('button').attributes('aria-label')).toBe('Remove tag')
   })
@@ -81,11 +69,11 @@ describe('BadgeDismiss', () => {
   it('dismisses badge when clicked', async () => {
     const wrapper = mount({
       components: { Badge, BadgeDismiss },
-      template: `<Badge dismissible><BadgeDismiss /></Badge>`,
+      template: `<Badge><BadgeDismiss /></Badge>`,
     })
 
     await wrapper.find('button').trigger('click')
 
-    expect(wrapper.find('.l-badge').attributes('data-state')).toBe('hidden')
+    expect(wrapper.find('.l-badge').exists()).toBe(false)
   })
 })

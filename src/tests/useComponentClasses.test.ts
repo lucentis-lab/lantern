@@ -2,15 +2,21 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useComponentClasses } from '../composables/useComponentClasses'
 import type { Theme, PluginOptions, ComponentSpec } from '../types'
 
-// Mock vue's inject
-vi.mock('vue', () => ({
-  inject: vi.fn(),
-}))
+vi.mock('vue', async (importOriginal) => {
+  const actual = await importOriginal() as object
+  return {
+    ...actual,
+    inject: vi.fn(),
+  }
+})
 
 import { inject } from 'vue'
 const mockInject = inject as ReturnType<typeof vi.fn>
 
-// Mock theme
+function resolve(props: Record<string, unknown>, spec: ComponentSpec): string {
+  return useComponentClasses(props, spec).value
+}
+
 const mockTheme: Theme = {
   colors: {
     default: {
@@ -117,46 +123,28 @@ describe('useComponentClasses', () => {
 
   describe('Color and variant resolution', () => {
     it('should use props when provided', () => {
-      const classes = useComponentClasses(
-        {
-          color: 'default',
-          variant: 'outline',
-        },
-        buttonSpec,
-      )
+      const classes = resolve({ color: 'default', variant: 'outline' }, buttonSpec)
 
       expect(classes).toContain('bg-transparent')
       expect(classes).toContain('text-gray-900')
     })
 
     it('should use spec defaultProps as fallback', () => {
-      const classes = useComponentClasses({}, buttonSpec)
+      const classes = resolve({}, buttonSpec)
 
-      expect(classes).toContain('bg-blue-500') // override
+      expect(classes).toContain('bg-blue-500')
       expect(classes).toContain('text-white')
     })
 
     it('should apply spec override', () => {
-      const classes = useComponentClasses(
-        {
-          color: 'primary',
-          variant: 'filled',
-        },
-        buttonSpec,
-      )
+      const classes = resolve({ color: 'primary', variant: 'filled' }, buttonSpec)
 
       expect(classes).toContain('bg-blue-500')
       expect(classes).not.toContain('bg-blue-600')
     })
 
     it('should apply only allowed keys', () => {
-      const classes = useComponentClasses(
-        {
-          color: 'primary',
-          variant: 'filled',
-        },
-        buttonSpec,
-      )
+      const classes = resolve({ color: 'primary', variant: 'filled' }, buttonSpec)
 
       expect(classes).toContain('hover:bg-blue-700')
       expect(classes).toContain('focus:ring-blue-500')
@@ -164,7 +152,7 @@ describe('useComponentClasses', () => {
     })
 
     it('should always include background + foreground', () => {
-      const classes = useComponentClasses({}, cardSpec)
+      const classes = resolve({}, cardSpec)
 
       expect(classes).toContain('bg-transparent')
       expect(classes).toContain('text-gray-900')
@@ -173,13 +161,7 @@ describe('useComponentClasses', () => {
     it('should warn if color/variant missing', () => {
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-      const classes = useComponentClasses(
-        {
-          color: 'x',
-          variant: 'y',
-        },
-        buttonSpec,
-      )
+      const classes = resolve({ color: 'x', variant: 'y' }, buttonSpec)
 
       expect(warnSpy).toHaveBeenCalled()
       expect(classes.length).toBeGreaterThan(0)
@@ -190,37 +172,21 @@ describe('useComponentClasses', () => {
 
   describe('Props resolution (size, radius)', () => {
     it('should use provided props', () => {
-      const classes = useComponentClasses(
-        {
-          size: 'lg',
-          radius: 'lg',
-        },
-        buttonSpec,
-      )
+      const classes = resolve({ size: 'lg', radius: 'lg' }, buttonSpec)
 
       expect(classes).toContain('h-12 px-6 text-lg')
       expect(classes).toContain('rounded-lg')
     })
 
     it('should apply spec override for size', () => {
-      const classes = useComponentClasses(
-        {
-          size: 'sm',
-        },
-        buttonSpec,
-      )
+      const classes = resolve({ size: 'sm' }, buttonSpec)
 
       expect(classes).toContain('h-7 px-2 text-xs')
       expect(classes).not.toContain('h-8 px-3 text-sm')
     })
 
     it('should fallback to global theme', () => {
-      const classes = useComponentClasses(
-        {
-          size: 'lg',
-        },
-        buttonSpec,
-      )
+      const classes = resolve({ size: 'lg' }, buttonSpec)
 
       expect(classes).toContain('h-12 px-6 text-lg')
     })
@@ -228,12 +194,7 @@ describe('useComponentClasses', () => {
     it('should warn unknown size', () => {
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-      useComponentClasses(
-        {
-          size: '???',
-        },
-        buttonSpec,
-      )
+      resolve({ size: '???' }, buttonSpec)
 
       expect(warnSpy).toHaveBeenCalled()
 
@@ -243,20 +204,15 @@ describe('useComponentClasses', () => {
 
   describe('Class merging', () => {
     it('should include spec base classes', () => {
-      const classes = useComponentClasses({}, buttonSpec)
+      const classes = resolve({}, buttonSpec)
 
       expect(classes).toContain('inline-flex')
       expect(classes).toContain('items-center')
     })
 
     it('should merge correctly', () => {
-      const classes = useComponentClasses(
-        {
-          color: 'primary',
-          variant: 'filled',
-          size: 'lg',
-          radius: 'lg',
-        },
+      const classes = resolve(
+        { color: 'primary', variant: 'filled', size: 'lg', radius: 'lg' },
         buttonSpec,
       )
 
@@ -267,12 +223,8 @@ describe('useComponentClasses', () => {
     })
 
     it('should let user class override', () => {
-      const classes = useComponentClasses(
-        {
-          color: 'primary',
-          variant: 'filled',
-          class: 'bg-red-500 h-20',
-        },
+      const classes = resolve(
+        { color: 'primary', variant: 'filled', class: 'bg-red-500 h-20' },
         buttonSpec,
       )
 
@@ -284,33 +236,22 @@ describe('useComponentClasses', () => {
 
   describe('Edge cases', () => {
     it('should handle empty props', () => {
-      const classes = useComponentClasses({}, buttonSpec)
+      const classes = resolve({}, buttonSpec)
       expect(classes.length).toBeGreaterThan(0)
     })
 
     it('should handle spec with no overrides', () => {
-      const classes = useComponentClasses({}, cardSpec)
+      const classes = resolve({}, cardSpec)
       expect(classes).toContain('p-4')
     })
 
     it('should support only user class', () => {
-      const classes = useComponentClasses(
-        {
-          class: 'custom-class',
-        },
-        buttonSpec,
-      )
-
+      const classes = resolve({ class: 'custom-class' }, buttonSpec)
       expect(classes).toContain('custom-class')
     })
 
     it('should support multiple classes', () => {
-      const classes = useComponentClasses(
-        {
-          class: 'c1 c2 c3',
-        },
-        buttonSpec,
-      )
+      const classes = resolve({ class: 'c1 c2 c3' }, buttonSpec)
 
       expect(classes).toContain('c1')
       expect(classes).toContain('c2')
@@ -325,11 +266,11 @@ describe('useComponentClasses', () => {
         defaultProps: { color: 'default', variant: 'outline' },
       }
 
-      const classes = useComponentClasses({}, outlineSpec)
+      const classes = resolve({}, outlineSpec)
 
-      expect(classes).toContain('hover:bg-gray-100') // hover appliqué
-      expect(classes).toContain('focus:ring-gray-500') // focus appliqué
-      expect(classes).toContain('border-2 border-gray-300') // border appliqué car variant = outline
+      expect(classes).toContain('hover:bg-gray-100')
+      expect(classes).toContain('focus:ring-gray-500')
+      expect(classes).toContain('border-2 border-gray-300')
     })
 
     it('should not apply variant-specific keys if variant does not match', () => {
@@ -340,11 +281,11 @@ describe('useComponentClasses', () => {
         defaultProps: { color: 'default', variant: 'filled' },
       }
 
-      const classes = useComponentClasses({}, outlineSpec)
+      const classes = resolve({}, outlineSpec)
 
-      expect(classes).toContain('hover:bg-gray-200') // hover appliqué
-      expect(classes).toContain('focus:ring-gray-500') // focus appliqué
-      expect(classes).not.toContain('border-2 border-gray-300') // border non appliqué car variant != outline
+      expect(classes).toContain('hover:bg-gray-200')
+      expect(classes).toContain('focus:ring-gray-500')
+      expect(classes).not.toContain('border-2 border-gray-300')
     })
   })
 })
