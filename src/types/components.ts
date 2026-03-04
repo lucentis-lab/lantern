@@ -35,4 +35,11 @@ export interface AccordionItemContext {
   contentId: ComputedRef<string>
 }
 
-
+export interface PopoverContext {
+  isOpen: Ref<boolean>
+  open: () => void
+  close: () => void
+  toggle: () => void
+  triggerId: string
+  contentId: string
+}

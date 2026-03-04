@@ -5,7 +5,8 @@ import { Badge, BadgeDismiss } from './components/badge';
 import { Avatar, AvatarFallback, AvatarImage } from './components/avatar';
 import Logo from './assets/logo.svg'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/tabs';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './primitives/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './components/accordion';
+import { Popover, PopoverContent, PopoverTrigger } from './primitives/popover';
 </script>
 
 <template>
@@ -54,6 +55,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './
         <AccordionContent>This is an accordion 2.</AccordionContent>
       </AccordionItem>
     </Accordion>
+
+    <Popover>
+      <PopoverTrigger>open me</PopoverTrigger>
+      <PopoverContent placement="right-start">yeah u opened me!</PopoverContent>
+    </Popover>
   </div>
 </template>
 
