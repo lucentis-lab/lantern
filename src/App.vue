@@ -4,6 +4,7 @@ import { Alert, AlertClose } from './components/alert'
 import { Badge, BadgeDismiss } from './components/badge';
 import { Avatar, AvatarFallback, AvatarImage } from './components/avatar';
 import Logo from './assets/logo.svg'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/tabs';
 </script>
 
 <template>
@@ -30,7 +31,16 @@ import Logo from './assets/logo.svg'
       <AvatarFallback>MD</AvatarFallback>
     </Avatar>
 
-    <!-- <img src="assets/logo.svg" alt=""> -->
+    <br>
+
+    <Tabs default-value="profile">
+      <TabsList aria-label="Account settings">
+        <TabsTrigger value="profile">Profile</TabsTrigger>
+        <TabsTrigger value="security">Security</TabsTrigger>
+      </TabsList>
+      <TabsContent value="profile">...profile</TabsContent>
+      <TabsContent value="security">...security</TabsContent>
+    </Tabs>
   </div>
 </template>
 

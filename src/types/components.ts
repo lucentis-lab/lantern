@@ -15,3 +15,9 @@ export interface BadgeContext {
   isVisible: Ref<boolean>
   dismiss: () => void
 }
+
+export interface TabsContext {
+  activeTab: Ref<string>
+  setTab: (value: string) => void
+  uid: string
+}
