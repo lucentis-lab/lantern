@@ -43,3 +43,12 @@ export interface PopoverContext {
   triggerId: string
   contentId: string
 }
+
+export interface DropdownContext {
+  isOpen: Ref<boolean>
+  open: () => void
+  close: () => void
+  toggle: () => void
+  triggerId: string
+  contentId: string
+}

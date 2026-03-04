@@ -7,6 +7,11 @@ import Logo from './assets/logo.svg'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './components/accordion';
 import { Popover, PopoverContent, PopoverTrigger } from './primitives/popover';
+import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from './components/dropdown';
+
+const onEdit = () => {
+  console.log('edit clicked');
+}
 </script>
 
 <template>
@@ -60,6 +65,17 @@ import { Popover, PopoverContent, PopoverTrigger } from './primitives/popover';
       <PopoverTrigger>open me</PopoverTrigger>
       <PopoverContent placement="right-start">yeah u opened me!</PopoverContent>
     </Popover>
+
+    <br>
+
+    <Dropdown>
+      <DropdownTrigger>Options</DropdownTrigger>
+      <DropdownContent placement="bottom-start">
+        <DropdownItem @click="onEdit">Edit</DropdownItem>
+        <DropdownItem>Delete</DropdownItem>
+        <DropdownItem disabled>Archive</DropdownItem>
+      </DropdownContent>
+    </Dropdown>
   </div>
 </template>
 
