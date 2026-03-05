@@ -1,32 +1,22 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 
-export function useDisclosure(referenceEl: () => HTMLElement | null) {
-  const isOpen = ref(false)
+/**
+ * Generic composable for managing a boolean open/visible state..
+ */
+export function useDisclosure(initialValue = false) {
+  const isOpen = ref(initialValue)
 
-  const open = () => { isOpen.value = true }
-  const close = () => { isOpen.value = false }
-  const toggle = () => { isOpen.value = !isOpen.value }
-
-  const onOutsideClick = (e: MouseEvent) => {
-    if (!isOpen.value) return
-    const ref = referenceEl()
-    if (ref && ref.contains(e.target as Node)) return
-    close()
+  const open = () => {
+    isOpen.value = true
   }
 
-  const onEscape = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') close()
+  const close = () => {
+    isOpen.value = false
   }
 
-  onMounted(() => {
-    document.addEventListener('pointerdown', onOutsideClick)
-    document.addEventListener('keydown', onEscape)
-  })
-
-  onUnmounted(() => {
-    document.removeEventListener('pointerdown', onOutsideClick)
-    document.removeEventListener('keydown', onEscape)
-  })
+  const toggle = () => {
+    isOpen.value = !isOpen.value
+  }
 
   return { isOpen, open, close, toggle }
 }
