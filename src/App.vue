@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './primitives/popover';
 import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from './components/dropdown';
 import { Tooltip, TooltipContent, TooltipTrigger } from './components/tooltip';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from './components/dialog';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbSeparator } from './components/breadcrumb';
 
 const onEdit = () => {
   console.log('edit clicked');
@@ -95,6 +96,12 @@ const onEdit = () => {
         <DialogClose />
       </DialogContent>
     </Dialog>
+
+    <Breadcrumb>
+      <BreadcrumbItem href="/">Home</BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem current>Components</BreadcrumbItem>
+    </Breadcrumb>
   </div>
 </template>
 
