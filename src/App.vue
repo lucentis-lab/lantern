@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './
 import { Popover, PopoverContent, PopoverTrigger } from './primitives/popover';
 import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from './components/dropdown';
 import { Tooltip, TooltipContent, TooltipTrigger } from './components/tooltip';
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from './components/dialog';
 
 const onEdit = () => {
   console.log('edit clicked');
@@ -84,6 +85,16 @@ const onEdit = () => {
       <TooltipTrigger>Delete</TooltipTrigger>
       <TooltipContent>This action is irreversible</TooltipContent>
     </Tooltip>
+
+    <br>
+
+    <Dialog>
+      <DialogTrigger>Open dialog</DialogTrigger>
+      <DialogContent>
+        <p>Some content</p>
+        <DialogClose />
+      </DialogContent>
+    </Dialog>
   </div>
 </template>
 

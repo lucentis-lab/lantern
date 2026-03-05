@@ -1,11 +1,8 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
+import { useDisclosure } from '@/composables/useDisclosure'
 
 export function useDismissible(referenceEl: () => HTMLElement | null) {
-  const isOpen = ref(false)
-
-  const open = () => { isOpen.value = true }
-  const close = () => { isOpen.value = false }
-  const toggle = () => { isOpen.value = !isOpen.value }
+  const { isOpen, open, close, toggle } = useDisclosure(false)
 
   const onOutsideClick = (e: MouseEvent) => {
     if (!isOpen.value) return

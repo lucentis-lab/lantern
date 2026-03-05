@@ -17,33 +17,33 @@ const TestTooltip = {
 describe('Tooltip', () => {
   it('content is hidden by default', () => {
     const wrapper = mount(TestTooltip)
-    expect(wrapper.find('.l-tooltip-content').exists()).toBe(false)
+    expect(wrapper.find('.l-tooltip-content').isVisible()).toBe(false)
   })
 
   it('opens on mouseenter', async () => {
     const wrapper = mount(TestTooltip)
     await wrapper.find('.l-tooltip-trigger').trigger('mouseenter')
-    expect(wrapper.find('.l-tooltip-content').exists()).toBe(true)
+    expect(wrapper.find('.l-tooltip-content').isVisible()).toBe(true)
   })
 
   it('closes on mouseleave', async () => {
     const wrapper = mount(TestTooltip)
     await wrapper.find('.l-tooltip-trigger').trigger('mouseenter')
     await wrapper.find('.l-tooltip-trigger').trigger('mouseleave')
-    expect(wrapper.find('.l-tooltip-content').exists()).toBe(false)
+    expect(wrapper.find('.l-tooltip-content').isVisible()).toBe(false)
   })
 
   it('opens on focus', async () => {
     const wrapper = mount(TestTooltip)
     await wrapper.find('.l-tooltip-trigger').trigger('focus')
-    expect(wrapper.find('.l-tooltip-content').exists()).toBe(true)
+    expect(wrapper.find('.l-tooltip-content').isVisible()).toBe(true)
   })
 
   it('closes on blur', async () => {
     const wrapper = mount(TestTooltip)
     await wrapper.find('.l-tooltip-trigger').trigger('focus')
     await wrapper.find('.l-tooltip-trigger').trigger('blur')
-    expect(wrapper.find('.l-tooltip-content').exists()).toBe(false)
+    expect(wrapper.find('.l-tooltip-content').isVisible()).toBe(false)
   })
 })
 

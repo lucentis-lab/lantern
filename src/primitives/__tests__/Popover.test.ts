@@ -22,14 +22,14 @@ describe('Popover', () => {
 
   it('content is hidden by default', () => {
     const wrapper = mount(TestPopover, { attachTo: document.body })
-    expect(document.querySelector('.l-popover-content')).toBeNull()
+    expect(wrapper.find('.l-popover-content').isVisible()).toBe(false)
     wrapper.unmount()
   })
 
   it('opens on trigger click', async () => {
     const wrapper = mount(TestPopover, { attachTo: document.body })
     await wrapper.find('button').trigger('click')
-    expect(document.querySelector('.l-popover-content')).not.toBeNull()
+    expect(wrapper.find('.l-popover-content').isVisible()).toBe(true)
     wrapper.unmount()
   })
 
@@ -37,7 +37,7 @@ describe('Popover', () => {
     const wrapper = mount(TestPopover, { attachTo: document.body })
     await wrapper.find('button').trigger('click')
     await wrapper.find('button').trigger('click')
-    expect(document.querySelector('.l-popover-content')).toBeNull()
+    expect(wrapper.find('.l-popover-content').isVisible()).toBe(false)
     wrapper.unmount()
   })
 
@@ -46,7 +46,7 @@ describe('Popover', () => {
     await wrapper.find('button').trigger('click')
     await document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
     await wrapper.vm.$nextTick()
-    expect(document.querySelector('.l-popover-content')).toBeNull()
+    expect(wrapper.find('.l-popover-content').isVisible()).toBe(false)
     wrapper.unmount()
   })
 
@@ -55,7 +55,7 @@ describe('Popover', () => {
     await wrapper.find('button').trigger('click')
     await document.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }))
     await wrapper.vm.$nextTick()
-    expect(document.querySelector('.l-popover-content')).toBeNull()
+    expect(wrapper.find('.l-popover-content').isVisible()).toBe(false)
     wrapper.unmount()
   })
 })

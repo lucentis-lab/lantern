@@ -1,4 +1,4 @@
-import type { ComputedRef, Ref } from 'vue'
+import type { Ref } from 'vue'
 
 export interface AlertContext {
   isVisible: Ref<boolean>
@@ -31,8 +31,8 @@ export interface AccordionContext {
 export interface AccordionItemContext {
   value: string
   isOpen: Ref<boolean>
-  triggerId: ComputedRef<string>
-  contentId: ComputedRef<string>
+  triggerId: string
+  contentId: string
 }
 
 export interface PopoverContext {
@@ -58,4 +58,13 @@ export interface TooltipContext {
   open: () => void
   close: () => void
   tooltipId: string
+}
+
+export interface DialogContext {
+  isOpen: Ref<boolean>
+  open: () => void
+  close: () => void
+  toggle: () => void
+  triggerId: string
+  dialogId: string
 }
